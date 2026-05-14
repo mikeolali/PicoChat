@@ -12,19 +12,27 @@ app.config["SECRET_KEY"] = "picochat-secret-key-change-this"
 CORS(app, origins="*")
 socketio = SocketIO(app, cors_allowed_origins="*")
 
-DATA_DIR = "/data"
+DATA_DIR = "data"
+
 USERS_FILE = os.path.join(DATA_DIR, "users.json")
 MESSAGES_FILE = os.path.join(DATA_DIR, "messages.json")
-AVATARS_DIR = os.path.join(DATA_DIR, "avatars")
 FRIENDS_FILE = os.path.join(DATA_DIR, "friends.json")
 
-os.makedirs(AVATARS_DIR, exist_ok=True)
+AVATARS_DIR = os.path.join(DATA_DIR, "avatars")
+
 
 def load_json(path, default):
     if os.path.exists(path):
         with open(path, "r", encoding="utf-8") as f:
             return json.load(f)
     return default
+
+
+# création des dossiers (IMPORTANT pour Render)
+if not os.path.exists(DATA_DIR):
+    os.makedirs(DATA_DIR)
+
+os.makedirs(AVATARS_DIR, exist_ok=True)
 
 def save_json(path, data):
     with open(path, "w", encoding="utf-8") as f:
