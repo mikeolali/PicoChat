@@ -10,7 +10,7 @@ from datetime import datetime
 app = Flask(__name__, static_folder="../frontend", static_url_path="")
 app.config["SECRET_KEY"] = "picochat-secret-key-change-this"
 CORS(app, origins="*")
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
 
 DATA_DIR = "data"
 
