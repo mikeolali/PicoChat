@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: picochat
+    runtime: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: gunicorn --worker-class eventlet -w 1 backend.app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+    disk:
+      name: picochat-data
+      mountPath: /data
+      sizeGB: 1
